@@ -4,8 +4,11 @@ from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
+from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 
 app = FastAPI()
+
+app.add_middleware(HTTPSRedirectMiddleware)
 
 # Static files (CSS)
 app.mount("/static", StaticFiles(directory="static"), name="static")
