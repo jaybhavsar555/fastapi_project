@@ -293,3 +293,5 @@ a.article-title:focus {
 .modal-header.bg-danger .modal-title {
   color: #ffffff !important;
 }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui; }
