@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -13,9 +15,9 @@ templates = Jinja2Templates(directory="templates")
 
 # Your data
 posts = [
-    {"id": 1, "author": "Jay Bhavsar", "title": "First Post", "content": "This is the first post."},
-    {"id": 2, "author": "Jay Bhavsar", "title": "Second Post", "content": "This is the second post."},
-    {"id": 3, "author": "Jay Bhavsar", "title": "Third Post", "content": "This is the third post."}
+    {"id": 1, "author": "Jay Bhavsar", "title": "First Post", "content": "This is the first post.", "date_posted": datetime(2026, 3, 1)},
+    {"id": 2, "author": "Jay Bhavsar", "title": "Second Post", "content": "This is the second post.", "date_posted": datetime(2026, 3, 2)},
+    {"id": 3, "author": "Jay Bhavsar", "title": "Third Post", "content": "This is the third post.", "date_posted": datetime(2026, 3, 3)}
 ]
 
 # Health check (Railway requirement)
