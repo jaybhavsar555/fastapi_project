@@ -1,15 +1,41 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
 
 app = FastAPI()
 
-@app.get("/")
-def home():
-    return {"message": "FastAPI live on Railway!", "posts": [{"id":1,"title":"First Post"}]}
+# Static files (CSS)
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
+# Templates
+templates = Jinja2Templates(directory="templates")
+
+# Your data
+posts = [
+    {"id": 1, "author": "Jay Bhavsar", "title": "First Post", "content": "This is the first post."},
+    {"id": 2, "author": "Jay Bhavsar", "title": "Second Post", "content": "This is the second post."},
+    {"id": 3, "author": "Jay Bhavsar", "title": "Third Post", "content": "This is the third post."}
+]
+
+# Health check (Railway requirement)
 @app.get("/health")
 def health():
     return {"status": "healthy"}
 
+# API endpoint
 @app.get("/api/posts")
 def get_posts():
-    return [{"id":1,"title":"First Post"}]
+    return posts
+
+# Home page (FIXED TemplateResponse)
+@app.get("/", response_class=HTMLResponse)
+async def home(request: Request):
+    return templates.TemplateResponse(
+        "home.html",
+        {
+            "request": request,  # REQUIRED for Jinja2 url_for()
+            "posts": posts,
+            "title": "Home Page"
+        }
+    )
