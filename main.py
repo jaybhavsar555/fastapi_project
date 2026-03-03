@@ -29,7 +29,8 @@ def get_posts():
     return posts
 
 # Home page (FIXED TemplateResponse)
-@app.get("/", response_class=HTMLResponse)
+@app.get("/", include_in_schema=False, name="home", response_class=HTMLResponse)
+@app.get("/posts", include_in_schema=False, name="posts", response_class=HTMLResponse)
 async def home(request: Request):
     return templates.TemplateResponse(
         "home.html",
